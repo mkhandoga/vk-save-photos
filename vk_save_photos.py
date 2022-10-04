@@ -5,7 +5,6 @@ import time
 from tqdm import tqdm
 import getpass
 
-
 login = "login"
 password = "password"
 
@@ -15,7 +14,7 @@ password = getpass.getpass("Type your VK password: ")
 
 destination_folder = input("Type the path to destination folder where the photos will be saved. Default value is /VK_photos/")
 if not destination_folder:
-    destination_folder = "VK_photos"
+    destination_folder = os.path.join(os.path.dirname(__file__),"VK_photos")
 
 print("Destination folder:",destination_folder)
 
@@ -65,5 +64,6 @@ for album in photos_dict:
         output_folder = album
     if not os.path.isdir(output_folder):
         os.makedirs(output_folder)
+    print ("Saving to", output_folder)
     for image in tqdm(photos_dict[album]):
         wget.download(url = image,out = output_folder,bar=None)
